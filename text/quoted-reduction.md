@@ -116,7 +116,11 @@ Definition quote {T : Type} (v : T) : T := v.
 
 When an evaluation mechanism, e.g. `cbv`, comes across a term `quote t`, it reduces the term to `subst σ t` where `σ` is the current term substition, i.e. it treats all symbols as opaque and does not perform `beta`, `iota`, or `zeta` reductions.
 
-It is important to note that `quote t` is not the same as `(fun f => f t) quote`. That is, when `quote` is not fully applied, it should be treated as the identity function.
+It is important to note that `quote t` is not the same as `(fun f => f t) quote`. That is, when `quote` is not fully applied, it should be treated as the identity function. This may seem counter-intuitive, but it is important for implementing `vm_compute` and `native_compute` because the compilation scheme for terms under `quote` is different than the compilation scheme for terms not under `quote`.
+
+## Middle-ground Design
+
+
 
 # Drawbacks
 
